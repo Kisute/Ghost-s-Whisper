@@ -90,6 +90,7 @@ Library/
 # Ignore Photon settings (App ID)
 Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
 Assets/Photon/Fusion/Resources/PhotonAppSettings.asset.meta
+Assets/Photon/Fusion/Resources/PhotonAppSettings.asset
 
 # Photon Fusion native plugin binaries (optional to ignore)
 Assets/Photon/Fusion/Plugins/**/*.dll
