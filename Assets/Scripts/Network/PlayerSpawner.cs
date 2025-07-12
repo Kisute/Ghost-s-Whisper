@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     public GameObject PlayerPrefab;
+    public void Start()
+    {
+        int playerLayer = LayerMask.NameToLayer("Player");
+        Physics.IgnoreLayerCollision(playerLayer, playerLayer);
+    }
 
     public void PlayerJoined(PlayerRef player)
     {
