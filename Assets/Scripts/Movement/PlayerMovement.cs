@@ -7,6 +7,7 @@ public class PlayerMovement : NetworkBehaviour
 {
     private Vector3 _velocity;
     private Vector2 _moveInput;
+    private Vector2 _lookInput;
     private bool _jumpPressed;
 
     private CharacterController _controller;
@@ -16,6 +17,7 @@ public class PlayerMovement : NetworkBehaviour
     public float PlayerSpeed = 50000f;
     public float JumpForce = 50f;
     public float GravityValue = -9.81f;
+    public float Sensitivity = 1;
 
     private void Awake()
     {
@@ -28,6 +30,8 @@ public class PlayerMovement : NetworkBehaviour
         playerControls.Gameplay.Jump.performed += OnJump;
         playerControls.Gameplay.Move.performed += OnMove;
         playerControls.Gameplay.Move.canceled += OnMove;
+        playerControls.Gameplay.Look.performed += OnLook;
+        playerControls.Gameplay.Look.canceled += OnLook;
     }
 
     private void OnJump(InputAction.CallbackContext context)
@@ -42,6 +46,10 @@ public class PlayerMovement : NetworkBehaviour
         Debug.Log("move");
     }
 
+    private void OnLook(InputAction.CallbackContext context)
+    {
+        _lookInput = context.ReadValue<Vector2>();
+    }
     public override void Spawned()
     {
         _controller = GetComponent<CharacterController>();
@@ -67,12 +75,16 @@ public class PlayerMovement : NetworkBehaviour
         }
         _velocity.y += GravityValue * Runner.DeltaTime;
 
-        // Combine movement
         Vector3 finalMove = moveDirection;
         finalMove.y = _velocity.y;
 
         _controller.Move(finalMove * Runner.DeltaTime);
 
+
+        float mouseX = _lookInput.x * Sensitivity;
+        float mouseY = _lookInput.y * Sensitivity;
+
+        transform.Rotate(Vector3.up * mouseX);
     }
 
     public PlayerInput CollectInput()

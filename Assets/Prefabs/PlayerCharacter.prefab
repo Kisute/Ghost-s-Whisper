@@ -335,6 +335,7 @@ MonoBehaviour:
   PlayerSpeed: 2
   JumpForce: 5
   GravityValue: -9.81
+  Sensitivity: 0.1
 --- !u!54 &2172908537382668939
 Rigidbody:
   m_ObjectHideFlags: 0
